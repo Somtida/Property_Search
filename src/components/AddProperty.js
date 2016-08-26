@@ -18,11 +18,10 @@ export default class AddProperty extends Component {
     console.log('adding a property');
     PropertiesActions.addNewTenant(this.state);
     this.setState({folderName: '', key: '', value: ''})
-
   }
 
   render() {
-    let {addAProperty} = this.props;
+
     return (
       <div>
         <form>

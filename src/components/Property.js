@@ -13,40 +13,8 @@ export default class Property extends Component {
       property: {},
     }
 
-    // this.editProperty = this.editProperty.bind(this);
-    // this.updateName = this.updateName.bind(this);
-    // this.updateValue = this.updateValue.bind(this);
-  }
 
-  // updateName(e) {
-  //   let property = this.state.property;
-  //   property.name = e.target.value;
-  //   this.setState(property)
-  // }
-  // updateValue(e) {
-  //   console.log(this.state.property)
-  //   let property = this.state.property;
-  //   property.value = e.target.value;
-  //   this.setState(property)
-  // }
-  //
-  // editProperty() {
-  //   if (!this.state.editing) {
-  //     this.setState({
-  //       property: this.props.property,
-  //       editing: !this.state.editing
-  //     })
-  //   } else {
-  //     console.log(this.state.property)
-  //     PropertiesActions.updateProperty(this.state.property)
-  //     this.setState({
-  //       property: {},
-  //       editing: !this.state.editing
-  //     })
-  //   }
-  // }
-  // <button onClick={this.editProperty}>{this.state.editing ? 'Confirm' : 'Edit'}</button>
-  // <button className="btn btn-danger" onClick={() => PropertyStore.deleteProperty(id)}>Delete</button>
+  }
 
 
   render() {

@@ -29,13 +29,6 @@ class PropertyStore extends EventEmitter {
     return _properties;
   }
 
-  deleteProperty(id) {
-    console.log('id:',id);
-    _properties = _properties.filter((property) => property.id !== id);
-    this.emit('CHANGE');
-    // return _properties;
-    // console.log(_properties.find((property) => property.id === id));
-  }
 
   startListening(cb) {
     this.on('CHANGE', cb)

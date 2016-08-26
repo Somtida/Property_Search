@@ -16,7 +16,7 @@ router.get('/:name', (req, res) => {
       fs.readFile(path.join(__dirname, `data/main/${stat}/delimiters.json`), 'utf8', function (err, data) {
         if (err) return res.status(400).send(err);
         const obj = JSON.parse(data).main[stat].delimiters;
-        // console.log('obj:',obj.hasOwnProperty(name));
+
           if(obj.hasOwnProperty(name)){
             let eachObj = {
               id: index,
@@ -24,11 +24,11 @@ router.get('/:name', (req, res) => {
               key: name,
               value: obj[name],
             }
-            // console.log(eachObj);
+
             allObj.push(eachObj);
           }
         if(index == stats.length-1){
-          // console.log('allObj:',allObj);
+
           return res.status(err ? 400: 200).send(err || allObj);
 
         }
@@ -42,17 +42,15 @@ router.get('/:folderName/:key', (req, res) => {
   const key = req.params.key;
   fs.readFile(path.join(__dirname, `data/main/${folderName}/delimiters.json`), 'utf8', function (err, data) {
     if (err) return console.log('err:',err);
-    // console.log(data);
     let obj = JSON.parse(data);
-    // console.log('before obj:',obj);
-    // console.log('before obj:',obj.main[folderName].delimiters);
+
     delete obj.main[folderName].delimiters[key];
-    // console.log('after obj:',obj.main[folderName].delimiters);
+
     obj = JSON.stringify(obj);
-    // console.log('after obj:',obj);
+
     fs.writeFile(path.join(__dirname, `data/main/${folderName}/delimiters.json`), obj , 'utf8', function (err) {
       if(err) return console.log('err in writeFile');
-      // console.log('writeFile success');
+
       return res.status(200).send(folderName)
     });
   });
@@ -77,8 +75,16 @@ router.post('/', (req, res) => {
     let obj = JSON.parse(data);
     console.log('before obj:',obj);
     console.log('before obj:',obj.main[folderName].delimiters);
-    obj.main[folderName].delimiters = Object.assign(newObject, obj.main[folderName].delimiters)
-  //   delete obj.main[folderName].delimiters[key];
+    console.log(!obj.main[folderName].delimiters.hasOwnProperty(key));
+    if(!obj.main[folderName].delimiters.hasOwnProperty(key)) {
+      console.log('if');
+      obj.main[folderName].delimiters = Object.assign(newObject, obj.main[folderName].delimiters);
+    }else{
+      console.log('else');
+      obj.main[folderName].delimiters[key] = value;
+      console.log('after obj:',obj.main[folderName].delimiters);
+    }
+
     console.log('after obj:',obj.main[folderName].delimiters);
     obj = JSON.stringify(obj);
     console.log('after obj:',obj);

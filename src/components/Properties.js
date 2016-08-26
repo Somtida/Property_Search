@@ -14,7 +14,6 @@ export default class Properties extends Component {
       properties: {},
       add: false,
     }
-
     this.onSubmit = this.onSubmit.bind(this);
     this.pickValue = this.pickValue.bind(this);
     this._onChange = this._onChange.bind(this);
@@ -94,7 +93,7 @@ export default class Properties extends Component {
         {this.state.properties.length ?
           <div>
             <div className="col-xs-12 col-md-9 col-lg-9 text-left">
-              {this.state.add ? <AddProperty /> :
+              {this.state.add ? <AddProperty addAProperty={this.addAProperty}/> :
                 <button
                   className="btn btn-warning"
                   type="submit"
