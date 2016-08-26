@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import PropertiesActions from '../actions/PropertiesActions'
 import PropertyStore from '../stores/PropertyStore'
 import PropertiesDisplay from './PropertiesDisplay'
@@ -18,12 +17,13 @@ export default class Properties extends Component {
     this.pickValue = this.pickValue.bind(this);
     this._onChange = this._onChange.bind(this);
     this.adding = this.adding.bind(this);
+    this.added = this.added.bind(this);
   }
 
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state.name);
-    this.state.name === ''  ? null : PropertiesActions.getAllProperties(this.state.name);
+    this.state.name === ''  ? alert('please input property') : PropertiesActions.getAllProperties(this.state.name);
     this.setState({name: ''})
   }
 
@@ -55,6 +55,12 @@ export default class Properties extends Component {
 
   adding(){
     this.setState({add: true});
+
+  }
+  added(bool){
+    console.log('got bool',bool);
+    this.setState({add: bool});
+    console.log(this.state);
   }
 
 
@@ -78,13 +84,14 @@ export default class Properties extends Component {
                 placeholder="quotationStart"
                 value={this.state.name}
                 onChange={e => this.setState({name: e.target.value})}
+                required
               />
             </div>
             <div className="col-xs-12 col-md-4 col-lg-4">
               <button
-                className="btn btn-success form-control"
+                className="btn btn-success form-control glyphicon glyphicon-search"
                 type="submit"
-                onClick={this.onSubmit}>Search
+                onClick={this.onSubmit}> Search
               </button>
             </div>
           </form>
@@ -93,11 +100,11 @@ export default class Properties extends Component {
         {this.state.properties.length ?
           <div>
             <div className="col-xs-12 col-md-9 col-lg-9 text-left">
-              {this.state.add ? <AddProperty addAProperty={this.addAProperty}/> :
+              {this.state.add ? <AddProperty added={this.added} /> :
                 <button
-                  className="btn btn-warning"
+                  className="btn btn-warning glyphicon glyphicon-plus"
                   type="submit"
-                  onClick={this.adding}>Add
+                  onClick={this.adding}> Add
                 </button>
               }
             </div>
@@ -113,11 +120,14 @@ export default class Properties extends Component {
           </div> :
           null
         }
+        {this.state.add ? null :
         <div style={space}>
-          {this.state.properties.length && !this.state.add ?
-            <PropertiesDisplay properties={this.state.properties} style={space} /> : null
-          }
+        {this.state.properties.length ?
+          <PropertiesDisplay properties={this.state.properties} style={space} /> :
+          <p>No Property To Display</p>
+        }
         </div>
+        }
       </div>
     )
   }

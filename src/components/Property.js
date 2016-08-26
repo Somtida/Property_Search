@@ -28,7 +28,7 @@ export default class Property extends Component {
         <td className="col-xs-4 col-md-4 col-md-4 text-center">{nameDisplay}</td>
         <td className="col-xs-4 col-md-4 col-md-4 text-center">{valueDisplay}</td>
         <td className="col-xs-4 col-md-4 col-md-4">
-          <button className="btn btn-danger" onClick={() => PropertiesActions.deleteProperty(name,key)}>Delete</button>
+          <button className="btn btn-danger glyphicon glyphicon-trash" onClick={() => PropertiesActions.deleteProperty(name,key)}>  Delete</button>
         </td>
       </tr>
     )
