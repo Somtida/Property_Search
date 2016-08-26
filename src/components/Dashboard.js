@@ -11,7 +11,7 @@ export default class Dashboard extends Component {
     return (
       <div className="text-center">
         <div className="alert alert-info">
-          <h1>Welcome to Properties Search!</h1>
+          <h1>Welcome to Property Search!</h1>
         </div>
         <Properties />
       </div>

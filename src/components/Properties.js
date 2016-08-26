@@ -22,7 +22,6 @@ export default class Properties extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state.name);
     this.state.name === ''  ? alert('please input property') : PropertiesActions.getAllProperties(this.state.name);
     this.setState({name: ''})
   }
@@ -37,13 +36,11 @@ export default class Properties extends Component {
   }
 
   _onChange() {
-    console.log('this:',this);
-    console.log('properties:', PropertyStore.getAllProperties());
     this.setState({properties: PropertyStore.getAllProperties()});
   }
 
   pickValue(selected){
-    console.log('selected: ', selected);
+
 
     if(selected === "name"){
       this.setState({properties: this.state.properties.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} )});
@@ -58,9 +55,7 @@ export default class Properties extends Component {
 
   }
   added(bool){
-    console.log('got bool',bool);
     this.setState({add: bool});
-    console.log(this.state);
   }
 
 
@@ -71,7 +66,6 @@ export default class Properties extends Component {
       paddingBottom: '30px',
     }
 
-    console.log('properties',this.state.properties.length);
     return (
         <div className="text-center">
           {this.state.add ? null :
@@ -99,7 +93,7 @@ export default class Properties extends Component {
       }
         {this.state.properties.length ?
           <div>
-            <div className="col-xs-12 col-md-9 col-lg-9 text-left">
+            <div className="col-xs-6 col-md-9 col-lg-9 text-left">
               {this.state.add ? <AddProperty added={this.added} /> :
                 <button
                   className="btn btn-warning glyphicon glyphicon-plus"
@@ -109,7 +103,7 @@ export default class Properties extends Component {
               }
             </div>
             {this.state.add ? null:
-              <div className="col-xs-12 col-md-3 col-lg-3 text-right">
+              <div className="col-xs-6 col-md-3 col-lg-3 text-right">
                 <label>Sort by:</label>
                 <select onChange={e => this.pickValue(e.target.value)}>>
                   <option value="name">Name</option>

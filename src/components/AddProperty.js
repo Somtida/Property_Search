@@ -15,62 +15,60 @@ export default class AddProperty extends Component {
 
   addAProperty(event){
     event.preventDefault();
-    console.log('adding a property');
     if(this.state.folderName.length && this.state.key.length && this.state.value.length){
       PropertiesActions.addNewTenant(this.state);
       this.setState({folderName: '', key: '', value: ''})
       this.props.added(false);
+      alert('added new property');
     }else{
       alert('please input value')
     }
   }
 
   render() {
-    console.log('this.props',this.props);
     return (
       <div>
         <form>
-          <div className="col-xs-2 col-md-2 col-lg-2 text-left">
+          <div className="col-xs-12 col-md-2 col-lg-2 text-left">
             <input
               className="form-control"
               type="text"
-              placeholder='"af"'
+              placeholder="af"
               onChange={e => this.setState({folderName: e.target.value})}
               required
             />
           </div>
-          <div className="col-xs-3 col-md-3 col-lg-3 text-left">
+          <div className="col-xs-12 col-md-3 col-lg-3 text-left">
             <input
               className="form-control"
               type="text"
-              placeholder='"quotationMark"'
+              placeholder="quotationMark"
               onChange={e => this.setState({key: e.target.value})}
               required
             />
           </div>
-          <div className="col-xs-3 col-md-3 col-lg-3 text-left">
+          <div className="col-xs-12 col-md-3 col-lg-3 text-left">
             <input
               className="form-control"
               type="text"
-              placeholder='"?"'
+              placeholder="?"
               onChange={e => this.setState({value: e.target.value})}
               required
             />
           </div>
-          <div className="col-xs-2 col-md-2 col-lg-2 text-left">
+          <div className="col-xs-12 col-md-2 col-lg-2 text-left">
             <button
-              className="btn btn-warning form-control"
+              className="btn btn-success form-control glyphicon glyphicon-ok"
               type="submit"
-              onClick={this.addAProperty}>Add
+              onClick={this.addAProperty}>
             </button>
           </div>
-          <div className="col-xs-2 col-md-2 col-lg-2 text-left">
+          <div className="col-xs-12 col-md-2 col-lg-2 text-left">
 
           <button
-            className="btn btn-default form-control"
+            className="btn btn-primary form-control glyphicon glyphicon-remove"
             onClick={() => this.props.added(false)}
             >
-              Cancel
           </button>
           </div>
         </form>
