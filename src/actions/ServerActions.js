@@ -8,17 +8,16 @@ const ServerActions = {
     });
   },
 
-  receiveTenants(tenants) {
+  deleteProperty(name) {
     AppDispatcher.dispatch({
-      actionType: 'RECEIVE_TENANTS',
-      tenants,
+      actionType: 'DELETE_PROPERTY',
+      name,
     });
   },
-  receiveOneTenant(tenant) {
+  addNewProperty(){
     AppDispatcher.dispatch({
-      actionType: 'RECEIVE_ONE_TENANT',
-      tenant,
-    })
+      actionType: 'ADD_PROPERTY',
+    });
   },
 }
 

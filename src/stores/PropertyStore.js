@@ -13,6 +13,14 @@ class PropertyStore extends EventEmitter {
           _properties = action.properties;
           this.emit('CHANGE');
           break;
+        case 'DELETE_PROPERTY':
+          _properties = _properties.filter((property) => property.name !== action.name);
+          this.emit('CHANGE');
+          break;
+        case 'ADD_PROPERTY':
+          this.emit('CHANGE');
+          break;
+
       }
     });
   }

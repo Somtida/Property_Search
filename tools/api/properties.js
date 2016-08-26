@@ -37,4 +37,59 @@ router.get('/:name', (req, res) => {
   })
 })
 
+router.get('/:folderName/:key', (req, res) => {
+  const folderName = req.params.folderName;
+  const key = req.params.key;
+  fs.readFile(path.join(__dirname, `data/main/${folderName}/delimiters.json`), 'utf8', function (err, data) {
+    if (err) return console.log('err:',err);
+    // console.log(data);
+    let obj = JSON.parse(data);
+    // console.log('before obj:',obj);
+    // console.log('before obj:',obj.main[folderName].delimiters);
+    delete obj.main[folderName].delimiters[key];
+    // console.log('after obj:',obj.main[folderName].delimiters);
+    obj = JSON.stringify(obj);
+    // console.log('after obj:',obj);
+    fs.writeFile(path.join(__dirname, `data/main/${folderName}/delimiters.json`), obj , 'utf8', function (err) {
+      if(err) return console.log('err in writeFile');
+      // console.log('writeFile success');
+      return res.status(200).send(folderName)
+    });
+  });
+
+
+})
+
+router.post('/', (req, res) => {
+  console.log('running');
+  const folderName = req.body.folderName;
+  console.log('folderName:',folderName);
+  const key = req.body.key;
+  const value = req.body.value;
+  const newObject = {
+    [key]: value,
+  }
+  console.log('newObject:',newObject);
+
+  fs.readFile(path.join(__dirname, `data/main/${folderName}/delimiters.json`), 'utf8', function (err, data) {
+    if (err) return console.log('err:',err);
+  //   // console.log(data);
+    let obj = JSON.parse(data);
+    console.log('before obj:',obj);
+    console.log('before obj:',obj.main[folderName].delimiters);
+    obj.main[folderName].delimiters = Object.assign(newObject, obj.main[folderName].delimiters)
+  //   delete obj.main[folderName].delimiters[key];
+    console.log('after obj:',obj.main[folderName].delimiters);
+    obj = JSON.stringify(obj);
+    console.log('after obj:',obj);
+    fs.writeFile(path.join(__dirname, `data/main/${folderName}/delimiters.json`), obj , 'utf8', function (err) {
+      if(err) return console.log('err in writeFile');
+      console.log('writeFile success');
+      return res.status(200).send()
+    });
+  });
+
+
+})
+
 export default router

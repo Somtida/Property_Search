@@ -8,9 +8,18 @@ const API = {
     get(`/api/properties/${name}`)
       .done(response => { ServerActions.receiveProperties(response) })
   },
-  deleteProperty(id) {
-    
-  }
+  deleteProperty(folderName,key) {
+    console.log(folderName,key);
+    get(`/api/properties/${folderName}/${key}`)
+      .done(response => { ServerActions.deleteProperty(folderName) })
+
+  },
+  addNewTenant(object) {
+    console.log('object in API:', object);
+    post('/api/properties', object)
+      .done(response => { ServerActions.addNewProperty() })
+  },
+
 }
 
 export default API

@@ -50,7 +50,7 @@ export default class Property extends Component {
 
 
   render() {
-    let { id,name, value } = this.props.property
+    let { id,name, key, value } = this.props.property
 
     let nameDisplay = this.state.editing ? <input onChange={this.updateName} defaultValue={name} /> : name
     let valueDisplay = this.state.editing ? <input onChange={this.updateValue} defaultValue={value} /> : value
@@ -60,7 +60,7 @@ export default class Property extends Component {
         <td className="col-xs-4 col-md-4 col-md-4 text-center">{nameDisplay}</td>
         <td className="col-xs-4 col-md-4 col-md-4 text-center">{valueDisplay}</td>
         <td className="col-xs-4 col-md-4 col-md-4">
-          <button className="btn btn-danger" onClick={() => PropertiesActions.deleteProperty(name)}>Delete</button>
+          <button className="btn btn-danger" onClick={() => PropertiesActions.deleteProperty(name,key)}>Delete</button>
         </td>
       </tr>
     )

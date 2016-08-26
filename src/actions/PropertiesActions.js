@@ -5,9 +5,14 @@ const PropertiesActions = {
     console.log('name in PropertiesActions:', name);
     API.getAllProperties(name);
   },
-  deleteProperty(id) {
-    API.deleteProperty(id);
-  }
+  deleteProperty(name,key) {
+    console.log(name,key);
+    API.deleteProperty(name,key)
+  },
+  addNewTenant(object) {
+    console.log(object);
+    API.addNewTenant(object)
+  },
 }
 
 export default PropertiesActions

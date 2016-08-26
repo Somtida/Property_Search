@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import PropertiesActions from '../actions/PropertiesActions'
 import PropertyStore from '../stores/PropertyStore'
 import PropertiesDisplay from './PropertiesDisplay'
+import AddProperty from './AddProperty'
 
 export default class Properties extends Component {
   constructor(props){
@@ -11,10 +12,13 @@ export default class Properties extends Component {
     this.state = {
       name: '',
       properties: {},
+      add: false,
     }
+
     this.onSubmit = this.onSubmit.bind(this);
     this.pickValue = this.pickValue.bind(this);
     this._onChange = this._onChange.bind(this);
+    this.adding = this.adding.bind(this);
   }
 
   onSubmit(e) {
@@ -50,6 +54,10 @@ export default class Properties extends Component {
     }
   }
 
+  adding(){
+    this.setState({add: true});
+  }
+
 
   render() {
     const space = {
@@ -60,7 +68,8 @@ export default class Properties extends Component {
 
     console.log('properties',this.state.properties.length);
     return (
-      <div className="text-center">
+        <div className="text-center">
+          {this.state.add ? null :
         <div style={space}>
           <form>
             <div className="col-xs-12 col-md-8 col-lg-8">
@@ -81,19 +90,33 @@ export default class Properties extends Component {
             </div>
           </form>
         </div>
+      }
         {this.state.properties.length ?
-          <div className="text-right">
-            <label>Sort by:</label>
-            <select onChange={e => this.pickValue(e.target.value)}>>
-              <option value="name">Name</option>
-              <option value="value">Value</option>
-            </select>
+          <div>
+            <div className="col-xs-12 col-md-9 col-lg-9 text-left">
+              {this.state.add ? <AddProperty /> :
+                <button
+                  className="btn btn-warning"
+                  type="submit"
+                  onClick={this.adding}>Add
+                </button>
+              }
+            </div>
+            {this.state.add ? null:
+              <div className="col-xs-12 col-md-3 col-lg-3 text-right">
+                <label>Sort by:</label>
+                <select onChange={e => this.pickValue(e.target.value)}>>
+                  <option value="name">Name</option>
+                  <option value="value">Value</option>
+                </select>
+              </div>
+            }
           </div> :
           null
         }
         <div style={space}>
-          {this.state.properties.length ?
-            <PropertiesDisplay properties={this.state.properties} style={space} /> : <p>No Property To Display</p>
+          {this.state.properties.length && !this.state.add ?
+            <PropertiesDisplay properties={this.state.properties} style={space} /> : null
           }
         </div>
       </div>
